@@ -1,0 +1,42 @@
+﻿@model LoginVM
+
+@{
+    Layout = null;
+}
+
+<h1>Login</h1>
+
+<!-- 顯示 TempData 訊息 -->
+@if (TempData["Message"] != null)
+{
+    <div>
+        @TempData["Message"]
+    </div>
+}
+
+<form asp-action="Login" method="post">
+    @Html.AntiForgeryToken()
+
+    <!--用於顯示全域的錯誤 ModelState.AddModelError("","帳號密碼錯誤")-->
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <button type="submit">登入</button>
+</form>
+
+<div>
+    <a asp-controller="Register" asp-action="Register" class="btn btn-primary">註冊帳號</a>
+
+    <a asp-controller="PasswordReset" asp-action="PasswordReset" class="btn btn-primary">忘記密碼</a>
+</div>

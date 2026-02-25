@@ -1,0 +1,52 @@
+﻿@model RegisterVM
+
+@{
+    Layout = null;
+}
+
+<h1>Register</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div>
+        @TempData["Message"]
+    </div>
+}
+
+<form asp-action="Register" method="post">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly"></div>
+    
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <div>
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" type="password" />
+        <span asp-validation-for="ConfirmPassword"></span>
+    </div>
+
+    <div>
+        <button type="submit">註冊</button>
+    </div>
+</form>
+
+<div>
+    <a asp-controller="Login" asp-action="Login">已經有帳號？登入</a>
+</div>

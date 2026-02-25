@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Interconn.Models.Member>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div>
+        @TempData["Message"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Members" asp-action="Index" method="get">
+	<input type="text" name="keyword" placeholder="請輸入名字" />
+	<button type="submit">搜尋</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Profile
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvatarPath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @if (!string.IsNullOrEmpty(item.AvatarPath))
+                {
+                    <img src="@Url.Content(item.AvatarPath)" width="80" />
+                }
+                else
+                {
+                    <img src="@Url.Content("~/images/members/default.png")" width="80" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvatarPath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MemberId">Edit</a> <br />
+                <a asp-action="Details" asp-route-id="@item.MemberId">Details</a> <br />
+                <a asp-action="Delete" asp-route-id="@item.MemberId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
