@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# 忽略 appsettings 設定檔（存密碼）
+appsettings.json
+
 # User-specific files
 *.rsuser
 *.suo
