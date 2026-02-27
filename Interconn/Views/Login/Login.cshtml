@@ -1,42 +1,81 @@
 ﻿@model LoginVM
 
 @{
-    Layout = null;
+	Layout = null;
 }
 
-<h1>Login</h1>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登入 - Interconn</title>
 
-<!-- 顯示 TempData 訊息 -->
-@if (TempData["Message"] != null)
-{
-    <div>
-        @TempData["Message"]
+    <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true" />
+</head>
+
+<body class="login-body">
+
+    <div class="login-container">
+        <!-- 登入卡片 -->
+        <div class="login-card">
+
+            <!-- 品牌 Logo -->
+            <div class="login-brand">
+                Inter<span class="text-blue">conn</span>
+            </div>
+
+            <h1 class="login-title">歡迎回來</h1>
+            <p class="login-subtitle">請輸入您的電子郵件與密碼以登入系統</p>
+
+            <!-- 系統提示訊息 (如：註冊成功請登入) -->
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert-message">
+                    @TempData["Message"]
+                </div>
+            }
+
+            <form asp-action="Login" method="post" class="login-form">
+                @Html.AntiForgeryToken()
+
+                <!-- 全域錯誤訊息 (如帳號密碼錯誤) -->
+                <div asp-validation-summary="ModelOnly" class="text-danger error-summary"></div>
+
+                <!-- 電子郵件 -->
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">電子郵件</label>
+                    <input asp-for="Email" class="form-input" placeholder="name@example.com" />
+                    <span asp-validation-for="Email" class="text-danger error-text"></span>
+                </div>
+
+                <!-- 密碼 -->
+                <div class="form-group">
+                    <div class="label-row">
+                        <label asp-for="Password" class="form-label">密碼</label>
+                        <!-- 將忘記密碼移到密碼欄位右上方，這是目前最流行的 UX 設計 -->
+                        <a asp-controller="PasswordReset" asp-action="PasswordReset" class="link-muted">忘記密碼？</a>
+                    </div>
+                    <input asp-for="Password" type="password" class="form-input" placeholder="••••••••••" />
+                    <span asp-validation-for="Password" class="text-danger error-text"></span>
+                </div>
+
+                <!-- 登入按鈕 -->
+                <button type="submit" class="btn-primary btn-block">登入</button>
+            </form>
+
+            <!-- 底部註冊連結 -->
+            <div class="login-footer">
+                還沒有帳號嗎？ <a asp-controller="Register" asp-action="Register" class="link-primary">立即註冊</a>
+            </div>
+
+        </div>
     </div>
-}
 
-<form asp-action="Login" method="post">
-    @Html.AntiForgeryToken()
-
-    <!--用於顯示全域的錯誤 ModelState.AddModelError("","帳號密碼錯誤")-->
-    <div asp-validation-summary="ModelOnly"></div>
-
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-
-    <button type="submit">登入</button>
-</form>
-
-<div>
-    <a asp-controller="Register" asp-action="Register" class="btn btn-primary">註冊帳號</a>
-
-    <a asp-controller="PasswordReset" asp-action="PasswordReset" class="btn btn-primary">忘記密碼</a>
-</div>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

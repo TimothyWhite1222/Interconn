@@ -1,82 +1,101 @@
 ﻿@model MemberEditVM
 
+@section Styles {
+    <!-- 只有進入這個頁面時css才會被載入 -->
+    <link rel="stylesheet" href="~/css/MembersEdit.css" asp-append-version="true" />
+}
+
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "編輯會員資料";
 }
 
-<h1>Edit</h1>
+<!-- 頁面標題區塊 -->
+<div class="page-header">
+    <h1 class="page-title">編輯會員資料</h1>
+    <p class="text-muted">更新會員的個人基本資訊與大頭貼照</p>
+</div>
 
-<h4>Member</h4>
-<hr />
+<!-- 現代化左右分欄版面 -->
+<div class="edit-container">
 
-@if (!string.IsNullOrEmpty(Model.AvatarPath))
-{
-    <img src="@Url.Content(Model.AvatarPath)" width="300" />
-}
-else
-{
-    <img src="@Url.Content("~/images/members/default.png")" width="300" />
-}
+    <!-- ================== 左側：大頭貼預覽區 ================== -->
+    <div class="avatar-section">
+        <div class="avatar-preview-card">
+            @if (!string.IsNullOrEmpty(Model.AvatarPath))
+            {
+                <img src="@Url.Content(Model.AvatarPath)" class="profile-avatar-large" alt="Current Avatar" />
+            }
+            else
+            {
+                <img src="@Url.Content("~/images/members/default.png")" class="profile-avatar-large" alt="Default Avatar" />
+            }
+            <div class="avatar-help-text">
+                <p>支援格式：JPG, PNG, HEIC, GIF</p>
+                <p>建議尺寸：正方形 (300x300px)</p>
+            </div>
+        </div>
+    </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <!-- ================== 右側：表單填寫區 ================== -->
+    <div class="form-section">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data" class="modern-form">
             @Html.AntiForgeryToken()
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- 錯誤訊息彙總 -->
+            <div asp-validation-summary="ModelOnly" class="text-danger error-summary"></div>
 
-            <!--Hidden MemberId-->
+            <!-- 隱藏欄位 -->
             <input type="hidden" asp-for="MemberId" />
 
-            <!--Name-->
+            <!-- 姓名 -->
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-input" placeholder="請輸入姓名" />
+                <span asp-validation-for="Name" class="text-danger error-text"></span>
             </div>
 
-            <!--Gender-->
+            <!-- 性別 -->
             <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<GenderType>()">
-                    <option value="">請選擇性別</option>
+                <label asp-for="Gender" class="form-label"></label>
+                <select asp-for="Gender" class="form-input" asp-items="Html.GetEnumSelectList<GenderType>()">
+                    <option value="">請選擇性別...</option>
                 </select>
-                <span asp-validation-for="Gender" class="text-danger"></span>
+                <span asp-validation-for="Gender" class="text-danger error-text"></span>
             </div>
 
-            <!--BirthDate-->
+            <!-- 生日 -->
             <div class="form-group">
-                <label asp-for="BirthDate" class="control-label"></label>
-                <input asp-for="BirthDate" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                <label asp-for="BirthDate" class="form-label"></label>
+                <!-- type="date" 會喚起瀏覽器原生美觀的月曆選擇器 -->
+                <input asp-for="BirthDate" class="form-input" type="date" />
+                <span asp-validation-for="BirthDate" class="text-danger error-text"></span>
             </div>
 
-            <!--Bio-->
+            <!-- 個人簡介 -->
             <div class="form-group">
-                <label asp-for="Bio" class="control-label"></label>
-                <textarea asp-for="Bio" class="form-control"></textarea>
-                <span asp-validation-for="Bio" class="text-danger"></span>
+                <label asp-for="Bio" class="form-label"></label>
+                <textarea asp-for="Bio" class="form-input textarea-input" rows="4" placeholder="介紹一下這位會員..."></textarea>
+                <span asp-validation-for="Bio" class="text-danger error-text"></span>
             </div>
 
-            <!-- 檔案 -->
-            <div class="form-group">
-                <label for="Files" class="control-label">Files</label>
-                <input asp-for="Files" type="file" class="form-control" accept=".jpg,.jpeg,.png,.heic,.gif" />
-                <span asp-validation-for="Files" class="text-danger"></span>
+            <!-- 檔案上傳 -->
+            <div class="form-group file-upload-group">
+                <label for="Files" class="form-label">上傳新大頭貼</label>
+                <input asp-for="Files" type="file" class="form-input file-input" accept=".jpg,.jpeg,.png,.heic,.gif" />
+                <span asp-validation-for="Files" class="text-danger error-text"></span>
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <!-- 操作按鈕區 -->
+            <div class="form-actions">
+                <a asp-action="Index" class="btn btn-secondary">返回列表</a>
+                <button type="submit" class="btn btn-primary">儲存變更</button>
             </div>
-
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

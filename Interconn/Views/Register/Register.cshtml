@@ -4,49 +4,89 @@
     Layout = null;
 }
 
-<h1>Register</h1>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>註冊帳號 - Interconn</title>
 
-@if (TempData["Message"] != null)
-{
-    <div>
-        @TempData["Message"]
+    <!-- 引入該頁面的專屬樣式 -->
+    <link rel="stylesheet" href="~/css/Register.css" asp-append-version="true" />
+</head>
+<body class="register-body">
+
+    <div class="register-container">
+        <!-- 註冊卡片 -->
+        <div class="register-card">
+
+            <!-- Project Name -->
+            <div class="register-brand">
+                Inter<span class="text-blue">conn</span>
+            </div>
+
+            <h1 class="register-title">建立新帳號</h1>
+            <p class="register-subtitle">請填寫以下資訊以註冊您的專屬帳號</p>
+
+            <!-- 系統提示訊息 -->
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert-message">
+                    @TempData["Message"]
+                </div>
+            }
+
+            <form asp-action="Register" method="post" class="register-form">
+                @Html.AntiForgeryToken()
+
+                <!-- 全域錯誤訊息 -->
+                <div asp-validation-summary="ModelOnly" class="text-danger error-summary"></div>
+
+                <!-- 姓名 -->
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label">姓名</label>
+                    <input asp-for="Name" class="form-input" placeholder="請輸入姓名" />
+                    <span asp-validation-for="Name" class="text-danger error-text"></span>
+                </div>
+
+                <!-- 電子郵件 -->
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">電子郵件</label>
+                    <input asp-for="Email" class="form-input" placeholder="name@example.com" />
+                    <span asp-validation-for="Email" class="text-danger error-text"></span>
+                </div>
+
+                <!-- 密碼 -->
+                <div class="form-group">
+                    <label asp-for="Password" class="form-label">密碼</label>
+                    <input asp-for="Password" type="password" class="form-input" placeholder="設定至少 8 碼的密碼" />
+                    <span asp-validation-for="Password" class="text-danger error-text"></span>
+                </div>
+
+                <!-- 確認密碼 -->
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="form-label">確認密碼</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-input" placeholder="請再次輸入密碼" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger error-text"></span>
+                </div>
+
+                <!-- 註冊按鈕 -->
+                <button type="submit" class="btn-primary btn-block">立即註冊</button>
+            </form>
+
+            <!-- 底部登入連結 -->
+            <div class="register-footer">
+                已經有帳號了？ <a asp-controller="Login" asp-action="Login" class="link-primary">返回登入</a>
+            </div>
+
+        </div>
     </div>
-}
 
-<form asp-action="Register" method="post">
-    @Html.AntiForgeryToken()
-
-    <div asp-validation-summary="ModelOnly"></div>
-    
-    <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
-    </div>
-
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-
-    <div>
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword" type="password" />
-        <span asp-validation-for="ConfirmPassword"></span>
-    </div>
-
-    <div>
-        <button type="submit">註冊</button>
-    </div>
-</form>
-
-<div>
-    <a asp-controller="Login" asp-action="Login">已經有帳號？登入</a>
-</div>
+    <!-- 驗證腳本 (雖然 Layout=null 但為了前端驗證仍需手動引入這段) -->
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

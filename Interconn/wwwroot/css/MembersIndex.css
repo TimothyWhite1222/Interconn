@@ -1,0 +1,159 @@
+﻿/* ================== 表單與按鈕元件 ================== */
+.action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.search-form {
+    display: flex;
+    gap: 8px;
+}
+
+.form-control {
+    padding: 8px 16px;
+    border: 1px solid var(--color-gray-border);
+    border-radius: 8px;
+    outline: none;
+    font-size: 0.95rem;
+    color: var(--color-gray-dark);
+    transition: border-color var(--transition-speed) ease;
+    min-width: 250px;
+}
+
+    .form-control:focus {
+        border-color: var(--color-blue-primary);
+        box-shadow: 0 0 0 3px var(--color-blue-light);
+    }
+
+.btn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: var(--color-blue-primary);
+    color: var(--color-white);
+}
+
+    .btn-primary:hover {
+        background-color: #1d4ed8; /* 深藍色 */
+        color: var(--color-white);
+    }
+
+/* 提示訊息 (Alert) */
+.alert-message {
+    background-color: var(--color-blue-light);
+    color: var(--color-blue-primary);
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    border: 1px solid #bfdbfe;
+    font-weight: 500;
+}
+
+/* ================== 現代化表格設計 ================== */
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    white-space: nowrap;
+}
+
+    .modern-table th {
+        background-color: var(--color-gray-bg);
+        color: var(--color-gray-text);
+        font-weight: 600;
+        padding: 14px 16px;
+        border-bottom: 2px solid var(--color-gray-border);
+        font-size: 0.9rem;
+    }
+
+    .modern-table td {
+        padding: 16px;
+        border-bottom: 1px solid var(--color-gray-border);
+        color: var(--color-gray-dark);
+        vertical-align: middle;
+        font-size: 0.95rem;
+    }
+
+    .modern-table tbody tr {
+        transition: background-color var(--transition-speed) ease;
+    }
+
+        /* 表格 Hover 效果：極淺的灰色 */
+        .modern-table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+.font-medium {
+    font-weight: 500;
+}
+
+.bio-text-truncate {
+    max-width: 650px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.path-text-truncate {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 大頭貼 (圓形裁切) */
+.avatar-img {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-gray-border);
+}
+
+/* 操作按鈕 (編輯/明細/刪除) */
+.action-links {
+    display: flex;
+    gap: 2px;
+}
+
+    .action-links a {
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--color-gray-text);
+        padding: 6px 12px;
+        border-radius: 6px;
+        transition: all var(--transition-speed) ease;
+        background-color: var(--color-gray-bg);
+    }
+
+        .action-links a:hover {
+            background-color: var(--color-blue-light);
+            color: var(--color-blue-primary);
+        }
+
+        /* 針對「刪除」按鈕給予警告色的 Hover 效果 */
+        .action-links a.delete-link:hover {
+            background-color: #fee2e2;
+            color: #ef4444;
+        }

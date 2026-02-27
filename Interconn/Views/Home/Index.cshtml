@@ -1,9 +1,66 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@section Styles {
+    <!-- 只有進入這個頁面時css才會被載入 -->
+    <link rel="stylesheet" href="~/css/HomeIndex.css" asp-append-version="true" />
 }
 
-<div class="text-center">
-    <h2 class="display-4">Welcome to my project</h2>
-    <p>Learn about details please click below </p>
-    <a href="https://hackmd.io/uxORrPODT8CJ2uyG_RzpFw">HackMD</a>
+@{
+    ViewData["Title"] = "首頁";
+}
+
+<div class="home-container">
+
+    <!-- ================== 主視覺歡迎區 (Hero Section) ================== -->
+    <div class="hero-section">
+        <div class="hero-badge">🎉 Welcome to Interconn</div>
+        <h1 class="hero-title">歡迎來到 <span class="text-blue">我的專案</span></h1>
+        <p class="hero-subtitle">
+            這是一個具備現代化 UI 體驗、即時通訊與會員管理的系統展示。
+            從左側選單開始探索，或是點擊下方按鈕了解更詳細的開發文件與架構設計。
+        </p>
+
+        <!-- 將原本的 HackMD 連結美化成主要行動按鈕 -->
+        <div class="hero-actions">
+            <a href="https://hackmd.io/uxORrPODT8CJ2uyG_RzpFw" target="_blank" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                閱讀 HackMD 開發文件
+            </a>
+            <a href="https://github.com/TimothyWhite1222/Interconn.git" target="_blank" class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                閱讀 GitHub 完整程式碼
+            </a>
+        </div>
+    </div>
+
+    <hr class="home-divider" />
+
+    <!-- ================== 系統特色介紹 (Feature Cards) ================== -->
+    <div class="features-header">
+        <h2 class="features-title">系統核心功能</h2>
+        <p class="text-muted">以下為本專案目前已實作的重點功能</p>
+    </div>
+
+    <div class="features-grid">
+        <!-- 特色卡片 1 -->
+        <div class="feature-card">
+            <div class="feature-icon bg-purple-light">🔒</div>
+            <h3 class="feature-name">安全驗證機制</h3>
+            <p class="feature-desc">包含完整的註冊、登入與密碼雜湊保護，並使用 AntiForgeryToken 防止跨站請求偽造攻擊。</p>
+        </div>
+
+        <!-- 特色卡片 2 -->
+        <div class="feature-card">
+            <div class="feature-icon bg-blue-light">👥</div>
+            <h3 class="feature-name">會員管理系統</h3>
+            <p class="feature-desc">具備完整的 CRUD 操作，支援大頭貼上傳、個人檔案展示與現代化無邊框表格呈現。</p>
+        </div>
+
+        <!-- 特色卡片 3 -->
+        <div class="feature-card">
+            <div class="feature-icon bg-green-light">💬</div>
+            <h3 class="feature-name">即時聊天室</h3>
+            <p class="feature-desc">基於 SignalR 技術打造的即時通訊模組，支援歷史訊息載入與在線使用者狀態顯示。</p>
+        </div>
+        
+    </div>
+
 </div>

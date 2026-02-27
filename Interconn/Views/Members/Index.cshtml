@@ -1,91 +1,90 @@
 ﻿@model IEnumerable<Interconn.Models.Member>
 
-@{
-    ViewData["Title"] = "Index";
+@section Styles {
+    <!-- 只有進入這個頁面時css才會被載入 -->
+    <link rel="stylesheet" href="~/css/MembersIndex.css" asp-append-version="true" />
 }
 
-<h1>Index</h1>
+@{
+    ViewData["Title"] = "會員列表";
+}
 
+<!-- 頂部操作區塊 (搜尋表單 & 新增按鈕) -->
+<div class="action-bar">
+    <a asp-action="Create" class="btn btn-primary">+ 新增會員</a>
+
+    <form asp-controller="Members" asp-action="Index" method="get" class="search-form">
+        <input type="text" name="keyword" class="form-control" placeholder="請輸入名字搜尋..." />
+        <button type="submit" class="btn btn-primary">搜尋</button>
+    </form>
+</div>
+
+<!-- 系統提示訊息 -->
 @if (TempData["Message"] != null)
 {
-    <div>
+    <div class="alert-message">
         @TempData["Message"]
     </div>
 }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-<form asp-controller="Members" asp-action="Index" method="get">
-	<input type="text" name="keyword" placeholder="請輸入名字" />
-	<button type="submit">搜尋</button>
-</form>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Profile
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvatarPath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedTime)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @if (!string.IsNullOrEmpty(item.AvatarPath))
-                {
-                    <img src="@Url.Content(item.AvatarPath)" width="80" />
-                }
-                else
-                {
-                    <img src="@Url.Content("~/images/members/default.png")" width="80" />
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AvatarPath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MemberId">Edit</a> <br />
-                <a asp-action="Details" asp-route-id="@item.MemberId">Details</a> <br />
-                <a asp-action="Delete" asp-route-id="@item.MemberId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<!-- 現代化資料表格 -->
+<div class="table-responsive">
+    <table class="modern-table">
+        <thead>
+            <tr>
+                <th>Member</th>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Gender)</th>
+                <th>@Html.DisplayNameFor(model => model.BirthDate)</th>
+                <th>@Html.DisplayNameFor(model => model.Bio)</th>
+                <th>@Html.DisplayNameFor(model => model.AvatarPath)</th>
+                <th>@Html.DisplayNameFor(model => model.UpdatedTime)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.AvatarPath))
+                        {
+                            <img src="@Url.Content(item.AvatarPath)" class="avatar-img" alt="Avatar" />
+                        }
+                        else
+                        {
+                            <img src="@Url.Content("~/images/members/default.png")" class="avatar-img" alt="Default Avatar" />
+                        }
+                    </td>
+                    <td class="font-medium">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BirthDate)
+                    </td>
+                    <td class="bio-text-truncate">
+                        @Html.DisplayFor(modelItem => item.Bio)
+                    </td>
+                    <!-- 保留原本的文字路徑顯示，加上截斷樣式避免過長 -->
+                    <td class="path-text-truncate">
+                        @Html.DisplayFor(modelItem => item.AvatarPath)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdatedTime)
+                    </td>
+                    <td>
+                        <!-- 將原本的換行改為並排的質感按鈕 -->
+                        <div class ="action-links">
+                            <a asp-action="Edit" asp-route-id="@item.MemberId">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.MemberId">Detail</a>
+                            <a asp-action="Delete" asp-route-id="@item.MemberId" class="delete-link">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

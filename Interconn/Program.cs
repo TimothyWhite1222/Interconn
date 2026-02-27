@@ -1,3 +1,4 @@
+using Interconn.Hubs;
 using Interconn.Models;
 using Interconn.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,6 +15,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("InterconnDB")));
 
 //使用DI依賴注入服務
 builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<ChatService>();
 
 //設定Cookie儲存登入資料,如果沒有就導向Login
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -30,6 +32,9 @@ builder.Services.AddAuthorization(options =>
         .RequireAuthenticatedUser()
         .Build();
 });
+
+//加入 SignalR
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -53,5 +58,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//將 Hub 路由映射出來
+app.MapHub<ChatHub>("/chathub");
 
 app.Run();

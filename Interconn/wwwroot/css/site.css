@@ -1,22 +1,168 @@
-html {
-  font-size: 14px;
+﻿:root {
+    /* 色彩系統：藍、灰、白 */
+    --color-white: #ffffff;
+    --color-blue-primary: #2563eb;
+    --color-blue-light: #eff6ff; /* 淺藍色 (用於側邊欄選單 hover) */
+
+    --color-gray-bg: #f1f5f9; /* 網頁主背景灰 */
+    --color-gray-border: #e2e8f0; /* 分隔線灰 */
+    --color-gray-text: #64748b; /* 說明文字灰 */
+    --color-gray-dark: #334155; /* 標題與重點文字深灰 */
+    /* 陰影與動畫 */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --transition-speed: 0.2s;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+/* 基礎重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--color-gray-dark);
+    line-height: 1.6;
+}
+
+.text-blue {
+    color: var(--color-blue-primary);
+}
+
+/* ================== 整體佈局 (Flexbox) ================== */
+.app-layout {
+    display: flex;
+    height: 100vh; /* 讓網頁高度等於視窗高度 */
+    overflow: hidden; /* 鎖定最外層滾動，改由內部滾動 */
+    background-color: var(--color-gray-bg);
+}
+
+/* ================== 左側邊欄 ================== */
+.sidebar {
+    width: 260px;
+    background-color: var(--color-white);
+    border-right: 1px solid var(--color-gray-border);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+/* 讓 Modern App 字體置中 */
+.sidebar-brand {
+    height: 72px;
+    display: flex;
+    justify-content: center; /* 水平置中 */
+    align-items: center; /* 垂直置中 */
+    border-bottom: 1px solid var(--color-gray-border);
+}
+
+    .sidebar-brand a {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-gray-dark);
+        text-decoration: none;
+        letter-spacing: -0.5px;
+    }
+
+/* 側邊選單樣式 */
+.sidebar-nav {
+    padding: 24px 16px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.sidebar-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--color-gray-text);
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all var(--transition-speed) ease;
+}
+
+    /* 選單 Hover 與 Active 狀態：白底轉淺藍底，文字轉藍色 */
+    .sidebar-link:hover,
+    .sidebar-link.active {
+        background-color: var(--color-blue-light);
+        color: var(--color-blue-primary);
+    }
+
+/* ================== 右側內容區 ================== */
+.main-content {
+    flex: 1; /* 佔據剩餘全部空間 */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* 右側內容過長時出現捲軸 */
+}
+
+/* 頂部導覽列 (右側) */
+.top-header {
+    height: 72px;
+    flex-shrink: 0;
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-gray-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.header-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-gray-dark);
+}
+
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-gray-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* 模擬一個簡單的使用者頭像 */
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-blue-primary);
+    border-radius: 50%;
+}
+
+/* 主內容卡片 */
+.content-wrapper {
+    flex: 1;
+    padding: 32px;
+}
+
+.content-card {
+    background-color: var(--color-white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-gray-border);
+    min-height: 60vh; /* 確保內容少的時候，白底卡片仍有一定高度 */
+}
+
+/* 頁尾 */
+.site-footer {
+    padding: 24px 32px;
+    text-align: center;
+    color: var(--color-gray-text);
+    font-size: 0.9rem;
 }

@@ -1,0 +1,160 @@
+﻿/* ================== 全畫面滿版置中 ================== */
+.register-body {
+    background-color: var(--color-gray-bg, #f1f5f9);
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* 確保佔滿整個螢幕高度 */
+}
+
+/* ================== 註冊卡片設計 ================== */
+.register-container {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.register-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 440px; /* 註冊表單欄位較多，卡片稍微加寬一點會比較舒適 */
+    padding: 40px 32px;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+    border: 1px solid var(--color-gray-border, #e2e8f0);
+}
+
+/* ================== 標題與品牌 ================== */
+.register-brand {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-gray-dark, #334155);
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+}
+
+.text-blue {
+    color: var(--color-blue-primary, #2563eb);
+}
+
+.register-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-gray-dark, #334155);
+    text-align: center;
+    margin: 0 0 8px 0;
+}
+
+.register-subtitle {
+    font-size: 0.9rem;
+    color: var(--color-gray-text, #64748b);
+    text-align: center;
+    margin: 0 0 24px 0;
+}
+
+/* ================== 提示與錯誤訊息 ================== */
+.alert-message {
+    background-color: #dcfce7;
+    color: #166534;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #bbf7d0;
+}
+
+.error-summary {
+    background-color: #fef2f2;
+    color: #ef4444;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    border: 1px solid #fecaca;
+}
+
+.error-text {
+    font-size: 0.85rem;
+    color: #ef4444;
+    margin-top: 4px;
+    display: block;
+}
+
+/* ================== 表單元件 ================== */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* 註冊欄位多，將間距稍微縮小一點 */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-gray-dark, #334155);
+}
+
+.form-input {
+    padding: 10px 14px;
+    border: 1px solid var(--color-gray-border, #e2e8f0);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--color-gray-dark, #334155);
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--color-blue-primary, #2563eb);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+/* ================== 按鈕與連結 ================== */
+.btn-block {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-blue-primary, #2563eb);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 12px;
+}
+
+    .btn-block:hover {
+        background-color: #1d4ed8;
+    }
+
+.link-primary {
+    color: var(--color-blue-primary, #2563eb);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+    .link-primary:hover {
+        text-decoration: underline;
+    }
+
+.register-footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-gray-text, #64748b);
+}

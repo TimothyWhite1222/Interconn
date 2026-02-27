@@ -1,0 +1,211 @@
+﻿/* ================== 標題區塊 ================== */
+.page-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-gray-border, #e2e8f0);
+}
+
+.page-title {
+    font-size: 1.5rem;
+    color: var(--color-gray-dark, #334155);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.text-muted {
+    color: var(--color-gray-text, #64748b);
+    font-size: 0.95rem;
+}
+
+/* ================== 左右分欄容器 ================== */
+.create-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    flex-wrap: wrap; /* 手機版會自動變上下排列 */
+}
+
+/* ================== 左側：視覺引導區 ================== */
+.visual-section {
+    flex: 1;
+    min-width: 250px;
+    max-width: 320px;
+}
+
+.avatar-placeholder-card {
+    background-color: var(--color-gray-bg, #f1f5f9);
+    border: 1px dashed var(--color-gray-text, #64748b);
+    border-radius: 12px;
+    padding: 40px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-avatar-placeholder {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    opacity: 0.8; /* 稍微透明一點，表示是預設狀態 */
+}
+
+.placeholder-text {
+    text-align: left;
+}
+
+.placeholder-title {
+    font-size: 1.1rem;
+    color: var(--color-gray-dark, #334155);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.placeholder-desc {
+    font-size: 0.9rem;
+    color: var(--color-gray-text, #64748b);
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.help-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    font-size: 0.85rem;
+    color: var(--color-gray-text, #64748b);
+    line-height: 1.6;
+}
+
+/* ================== 右側：表單區 ================== */
+.form-section {
+    flex: 2;
+    min-width: 300px;
+}
+
+.modern-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-gray-dark, #334155);
+}
+
+/* 統一輸入框設計 */
+.form-input {
+    padding: 10px 14px;
+    border: 1px solid var(--color-gray-border, #e2e8f0);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--color-gray-dark, #334155);
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--color-blue-primary, #2563eb);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+.textarea-input {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* 檔案上傳框美化 */
+.file-input {
+    padding: 8px;
+    background-color: var(--color-gray-bg, #f1f5f9);
+    cursor: pointer;
+}
+
+    .file-input::file-selector-button {
+        background-color: #ffffff;
+        border: 1px solid var(--color-gray-border, #e2e8f0);
+        padding: 6px 16px;
+        border-radius: 6px;
+        color: var(--color-gray-dark, #334155);
+        font-weight: 500;
+        cursor: pointer;
+        margin-right: 12px;
+        transition: background-color 0.2s;
+    }
+
+        .file-input::file-selector-button:hover {
+            background-color: var(--color-gray-bg, #f1f5f9);
+        }
+
+/* ================== 按鈕與驗證訊息 ================== */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-gray-border, #e2e8f0);
+}
+
+.btn-secondary, .btn-primary {
+    padding: 8px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    display: inline-block;
+}
+
+.btn-secondary {
+    background-color: #ffffff;
+    color: var(--color-gray-dark, #334155);
+    border: 1px solid var(--color-gray-border, #e2e8f0);
+}
+
+    .btn-secondary:hover {
+        background-color: var(--color-gray-bg, #f1f5f9);
+    }
+
+.btn-primary {
+    background-color: var(--color-blue-primary, #2563eb);
+    color: #ffffff;
+}
+
+    .btn-primary:hover {
+        background-color: #1d4ed8;
+    }
+
+/* 錯誤文字與提示框 */
+.error-text {
+    font-size: 0.85rem;
+    color: #ef4444;
+    margin-top: 4px;
+}
+
+.error-summary {
+    background-color: #fef2f2;
+    color: #ef4444;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #fecaca;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
