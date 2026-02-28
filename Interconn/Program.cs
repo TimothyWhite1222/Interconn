@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<InterconnDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("InterconnDB")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //使用DI依賴注入服務
 builder.Services.AddScoped<IMemberService, MemberService>();
