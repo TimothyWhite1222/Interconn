@@ -166,3 +166,58 @@ body {
     color: var(--color-gray-text);
     font-size: 0.9rem;
 }
+
+/* 小螢幕響應式 */
+@media (max-width: 768px) {
+    .top-header {
+        padding-left: 64px; /* 留給漢堡選單的空間 */
+        padding-right: 32px;
+    }
+
+    .header-title {
+        font-size: 1rem; /* 可以稍微縮小字體 */
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -260px; /* 預設收起 */
+        top: 0;
+        height: 100vh;
+        transition: left 0.3s ease;
+        z-index: 200;
+    }
+
+        .sidebar.open {
+            left: 0; /* 打開時滑出 */
+        }
+
+    .main-content {
+        flex: 1;
+        transition: margin-left 0.3s ease;
+    }
+
+        /* 打開 sidebar 時 main-content 可加 margin */
+        .main-content.shift {
+            margin-left: 260px;
+        }
+
+    /* 漢堡選單按鈕 */
+    .hamburger {
+        display: block;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        position: absolute;
+        left: 16px;
+        top: 20px;
+        z-index: 300;
+    }
+
+        .hamburger div {
+            height: 3px;
+            background-color: var(--color-gray-dark);
+            margin: 6px 0;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+}
