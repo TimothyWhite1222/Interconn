@@ -12,7 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<InterconnDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+            sqlOptions =>
+            {   
+                // 自動重試
+                sqlOptions.EnableRetryOnFailure(); 
+            }));
 
 //使用DI依賴注入服務
 builder.Services.AddScoped<IMemberService, MemberService>();
