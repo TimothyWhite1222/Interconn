@@ -8,16 +8,7 @@
       "connectionId": "Azure:SignalR:ConnectionString",
       "dynamicId": null
     },
-    "mssql3": {
-      "ignored": "true",
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:DefaultConnection"
-    },
-    "mssql1": {
-      "ignored": "true",
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:DatabaseConnection"
-    },
+
     "mssql2": {
       "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/Interconn0227/providers/Microsoft.ServiceLinker/linkers/DefaultConnection_BA58963640",
       "secretStore": "AzureAppSettings",
