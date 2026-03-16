@@ -11,26 +11,28 @@ namespace Interconn.Hubs
         private readonly ChatService _chatService;
 
         // 管理在線使用者 (ConnectionId -> UserName)
-        private static readonly ConcurrentDictionary<string, string> _onlineUsers
-            = new();
+        private static readonly ConcurrentDictionary<string, string> _onlineUsers= new ConcurrentDictionary<string, string>();
 
         public ChatHub(ChatService chatService)
         {
             _chatService = chatService;
         }
 
+        //使用者呼叫connection.start(), SignalR 偵測到新連線, 就會呼叫這個方法
         public override async Task OnConnectedAsync()
         {
             var userName = Context.User?.Identity?.Name;
 
             var userIdStr = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
+            //取得使用者的資料是null的話 斷開連線
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userIdStr))
             {
                 Context.Abort();
                 return;
             }
 
+            //這裡把使用者加入線上清單
             _onlineUsers[Context.ConnectionId] = userName;
 
             // 廣播在線名單給所有人
@@ -43,8 +45,10 @@ namespace Interconn.Hubs
             await base.OnConnectedAsync();
         }
 
+        //每當使用者斷開連線時, SignalR會自動呼叫這個方法
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
+            //把使用者從線上清單移除
             _onlineUsers.TryRemove(Context.ConnectionId, out _);
 
             await Clients.All.SendAsync("UserList", _onlineUsers.Values.Distinct());
@@ -52,6 +56,7 @@ namespace Interconn.Hubs
             await base.OnDisconnectedAsync(exception);
         }
 
+        //前端JavaScript呼叫 Connection.invoke("SendMessage", message),就會進入這個方法
         public async Task SendMessage(string message)
         {
             var userName = Context.User?.Identity?.Name;

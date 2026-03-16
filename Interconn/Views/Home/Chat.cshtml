@@ -51,12 +51,15 @@
 
 
 @section Scripts {
+	<!-- 前端引入SignalR的JavaScript函式庫 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.0/signalr.min.js"></script>
 	<script>
+		//建立一個SignalR前端連線物件
 		const connection = new signalR.HubConnectionBuilder()
 			.withUrl("/chathub")
 			.build();
 
+		//監聽ReceiveMessage事件 接收Hub廣播的訊息
 		connection.on("ReceiveMessage", function(user, message, time){
 			const container = document.getElementById("messages");
 			const div = document.createElement("div");
@@ -66,6 +69,7 @@
 			container.scrollTop = container.scrollHeight;
 		});
 
+		//監聽UserList事件 更新使用者清單跟人數
 		connection.on("UserList", function(users){
 			const ul = document.getElementById("users");
 			const countSpan = document.getElementById("online-count");
@@ -77,10 +81,10 @@
 				ul.appendChild(li);
 			});
 
-			//在線人數更新
 			countSpan.textContent = users.length;
 		});
 
+		//載入歷史訊息
 		connection.on("LoadHistoryResult", function (messages) {
 			const container = document.getElementById("messages");
 			container.innerHTML = "";
@@ -105,12 +109,14 @@
 			container.scrollTop = container.scrollHeight;
 		});
 
+		//前端JavaScript啟動SignalR連線
 		connection.start()
 			.then(() => {
 				console.log("SignalR 連線成功");				
 			})
 			.catch(err => console.error(err));
 
+		//input的onclick事件 發送訊息的方法
 		function send() {
 			const input = document.getElementById("msg");
 			const message = input.value.trim();
@@ -124,16 +130,22 @@
 				.catch(err => console.error("送出失敗:", err));
 		}
 
+		//按Enter也可以觸發Send()
 		document.getElementById("msg")
-			.addEventListener("keypress", function(e){
-				if(e.key === "Enter") send();
+			.addEventListener("keydown", function(e){
+				if(e.key === "Enter") {
+					e.preventDefault();
+					send();
+				}
 			});
 
+		//把歷史訊息傳入的時間格式改成正常的字串
+		//這邊要轉換的原因是SignalR會把SendAsync("LoadHistoryResult", messages)傳過來的時間變成JSON
 		function formatTime(dateStr){
 			const date = new Date(dateStr);
 			return (date.getMonth() + 1).toString().padStart(2, '0') + "/" +
 			       date.getDate().toString().padStart(2,'0') + " " +
-				   date.toLocaleDateString("En", { weekday: "short" }) + " " + 
+				   date.toLocaleDateString("en-US", { weekday: "short" }) + " " +
 				   date.getHours().toString().padStart(2,'0') + ":" +
 				   date.getMinutes().toString().padStart(2,'0');
 		}
